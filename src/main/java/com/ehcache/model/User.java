@@ -3,7 +3,7 @@ package com.ehcache.model;
 import java.io.Serializable;
 
 /**
- * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
+ * @author <a href="mailto:psunil1278@gmail.com">Sunil Kumar</a>
  * @since 16/11/15
  */
 public class User implements Serializable{

@@ -3,6 +3,7 @@ package com.ehcache;
 import java.io.InputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import com.ehcache.manager.CachedUserManager;
 import com.ehcache.model.User;
@@ -40,8 +41,8 @@ public class UserEhcacheDemo {
                 Integer i = new Integer(1);
                 while(i<5)
                 {
-                    //any random value between 1 to 30 sec
-                    int sleepTime = getRandomSleepTime(1000, 30000);
+                    //any random value between 1 to 45 sec
+                    int sleepTime = getRandomSleepTime(1000, 45000);
                     System.out.println(threadName +" will sleep during "+sleepTime+" milliseconds");
                     try {
                         Thread.currentThread().sleep(sleepTime);
@@ -83,6 +84,20 @@ public class UserEhcacheDemo {
                 }
             }
         });
+        try {
+            //waiting until executor threads are done.
+            execService.shutdown();
+            while (!execService.awaitTermination(24L, TimeUnit.HOURS)) {
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        cache1.dispose();
+        cache2.dispose();
+        cacheManager.shutdown();
+
+        System.out.println("Bye bye....");
 
     }
 
